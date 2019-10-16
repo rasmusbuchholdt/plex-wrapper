@@ -17,7 +17,11 @@
     "type": "git",
     "url": "git+https://github.com/RasmusBuchholdt/plex-wrapper.git"
   },
-  "keywords": ["plex", "plex.tv", "api"],
+  "keywords": [
+    "plex",
+    "plex.tv",
+    "api"
+  ],
   "author": "Rasmus Buchholdt",
   "license": "ISC",
   "bugs": {
@@ -25,6 +29,7 @@
   },
   "homepage": "https://github.com/RasmusBuchholdt/plex-wrapper#readme",
   "devDependencies": {
+    "@types/node": "^12.11.1",
     "prettier": "^1.18.2",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
@@ -32,5 +37,10 @@
   },
   "files": [
     "lib/**/*"
-  ]
+  ],
+  "dependencies": {
+    "promise": "^8.0.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
 }
