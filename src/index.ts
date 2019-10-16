@@ -1,3 +1,5 @@
+import { parseXML } from './util';
+
 let request = require('request-promise');
 
 export class PlexWrapper {
@@ -11,10 +13,9 @@ export class PlexWrapper {
         this.clientId = clientId;
         this.username = username;
         this.password = password;
-        this.authenticate(username, password);
     }
 
-    private authenticate(username: string, password: string): Promise<boolean> {
+    authenticate(): Promise<any> {
         let options: {} = {
             method: "POST",
             url: "https://plex.tv/api/v2/users/signin",
@@ -27,18 +28,41 @@ export class PlexWrapper {
                 "X-Plex-Version": ""
             },
             form: {
-                login: username,
-                password: password
+                login: this.username,
+                password: this.password
             },
         };
 
-        return new Promise<boolean>((resolve: any, reject: any) => {
+        return new Promise<any>((resolve: any) => {
             request(options)
                 .then((result: { authToken: string; }) => {
                     this.accessToken = result.authToken;
                     resolve();
                 })
                 .catch((error: any) => {
+                    throw new Error(error.message)
+                });
+        });
+    }
+
+    getServers(): Promise<any> {
+        if (this.accessToken === "") return this.authenticate().then(() => this.getServers());
+        let options: {} = {
+            method: "GET",
+            url: `https://plex.tv/api/servers`,
+            json: true,
+            headers: {
+                "X-Plex-Token": this.accessToken,
+            },
+        };
+
+        return new Promise((resolve: any) => {
+            request(options)
+                .then((result: any) => {
+                    parseXML(result).then((parsedResult: any)  => {
+                        resolve(parsedResult.MediaContainer.Server);
+                    });
+                }).catch((error: any) => {
                     throw new Error(error.message)
                 });
         });
