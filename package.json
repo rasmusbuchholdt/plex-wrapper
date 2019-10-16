@@ -1,6 +1,6 @@
 {
   "name": "plex-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Plex.tv API made easy",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/node": "^12.11.1",
     "prettier": "^1.18.2",
+    "standard-version": "^7.0.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.4"
