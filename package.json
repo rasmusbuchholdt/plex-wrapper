@@ -3,6 +3,7 @@
   "version": "1.0.8",
   "description": "Plex.tv API made easy",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
