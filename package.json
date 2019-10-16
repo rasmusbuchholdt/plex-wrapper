@@ -1,12 +1,12 @@
 {
   "name": "plex-wrapper",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Plex.tv API made easy",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "version": "npm run format && git add -A src",
+    "version": "npm run && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "repository": {
