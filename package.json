@@ -5,14 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run lint",
-    "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "release": "standard-version"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -24,7 +19,7 @@
     "api"
   ],
   "author": "Rasmus Buchholdt",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/RasmusBuchholdt/plex-wrapper/issues"
   },
@@ -32,13 +27,11 @@
   "devDependencies": {
     "@types/node": "^12.11.1",
     "prettier": "^1.18.2",
-    "standard-version": "^7.0.0",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.4"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "README.md"
   ],
   "dependencies": {
     "promise": "^8.0.3",
