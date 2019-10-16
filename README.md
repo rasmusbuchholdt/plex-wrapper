@@ -1,7 +1,6 @@
 # plex-wrapper
 
-Small module that makes it easier to use the Plex API for management.
-For now the wrapper will only support management side of things, media control will be added later.
+A small module that makes it easier to use the Plex API for management.
 
 ## Usage
 
@@ -25,7 +24,7 @@ var client = new plexWrapper("clientId", "username", "password");
 
 **Authenticate login with the supplied username and password**
 
-It is possible to manually authenticate, after the authentication has gone through you can then take advantage of the promise callback. All the functions built into this libarary will try to authenticate before performing any method, so this functionality is only for people that wants to have full control.
+It is possible to manually authenticate after the authentication has gone through you can then take advantage of the promise callback. All the functions built into this library will try to authenticate before performing any method, so this functionality is only for people that want to have full control.
 
 ```js
 var plexWrapper = require("plex-wrapper");
@@ -39,7 +38,7 @@ client.authenticate().then(() => {
 
 ### .getServers()
 
-**Return all servers assosicated with Plex account**
+**Return all servers associated with Plex account**
 
 By default Plex API returns servers in XML format, this function converts it to JSON before returning. This function is also taking advantage of promise callbacks, which is demonstrated in the example:
 
@@ -51,6 +50,57 @@ client.getServers().then(result => {
     // The result contains a JSON array with all the servers
     console.log(result);
 });
+```
+
+### .inivteUser()
+
+**Invite a given user to a specific Plex server under the account**
+
+This function allows you to invite a user to a specific server, given you have their username/email and the machine identifier of your server. The target will receive an email with the invite.
+
+- **username**: Can either be the email or username of the target user
+- **machineId**: The server's machine identifier, can be obtained using the `.getServer()` function. 
+
+```js
+var plexWrapper = require("plex-wrapper");
+var client = new plexWrapper("clientId", "username", "password");
+
+client.inviteUser("username", "machineId");
+```
+
+### .getUsers() and .getPendingUsers()
+
+**Return all users with shared library access or pending access to any Plex library**
+
+The Plex API splits up users that already accepted library sharing access and users that still got a pending invitation, the example demonstrate how you get each type of user:
+
+```js
+var plexWrapper = require("plex-wrapper");
+var client = new plexWrapper("clientId", "username", "password");
+
+client.getUsers().then(result => {
+    console.log(result);
+});
+
+client.getPendingUsers().then(result => {
+    console.log(result);
+});
+```
+
+### .removeUser() and .removePendingUser()
+
+**Removes a specific user from accessing any shared libraries**
+
+Just like the get users, removing user is already separated based on if they have accepted the invite yet. To use this function you need to have a user's unique identifier.
+
+- **userId**: A users unique identifier, can be obtained using the `.getUsers()` or `.getPendingUsers()` functions. 
+
+```js
+var plexWrapper = require("plex-wrapper");
+var client = new plexWrapper("clientId", "username", "password");
+
+client.removeUser("userId");
+client.removePendingUser("userId");
 ```
 
 ## License
