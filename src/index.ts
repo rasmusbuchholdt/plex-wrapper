@@ -1,3 +1,5 @@
+import { PlexServer } from './models/server';
+import { PlexUser } from './models/user';
 import { parseXML } from './util';
 
 let request = require('request-promise');
@@ -44,8 +46,9 @@ export class PlexWrapper {
     });
   }
 
-  getServers(): Promise<any> {
+  getServers(): Promise<PlexServer[]> {
     if (this.accessToken === '') return this.authenticate().then(() => this.getServers());
+    let servers: PlexServer[] = [];
     let options: {} = {
       method: 'GET',
       url: 'https://plex.tv/api/servers',
@@ -59,7 +62,10 @@ export class PlexWrapper {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
-            resolve(parsedResult.MediaContainer.Server || []);
+            parsedResult.MediaContainer.Server.forEach((server: any) => {
+              servers.push(Object.assign(new Object as PlexServer, server.$));
+            });
+            resolve(servers);
           });
         })
         .catch((error: any) => {
@@ -68,8 +74,9 @@ export class PlexWrapper {
     });
   }
 
-  getUsers(): Promise<any> {
+  getUsers(): Promise<PlexUser[]> {
     if (this.accessToken === '') return this.authenticate().then(() => this.getUsers());
+    let users: PlexUser[] = [];
     let options: {} = {
       method: 'GET',
       url: 'https://plex.tv/api/users',
@@ -79,11 +86,14 @@ export class PlexWrapper {
       },
     };
 
-    return new Promise((resolve: any, reject: any) => {
+    return new Promise((resolve: any) => {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
-            resolve(parsedResult.MediaContainer.User || []);
+            parsedResult.MediaContainer.User.forEach((user: any) => {
+              users.push(Object.assign(new Object as PlexUser, user.$));
+            });
+            resolve(users);
           });
         })
         .catch((error: any) => {
@@ -92,8 +102,9 @@ export class PlexWrapper {
     });
   }
 
-  getPendingUsers(): Promise<any> {
+  getPendingUsers(): Promise<PlexUser[]> {
     if (this.accessToken === '') return this.authenticate().then(() => this.getPendingUsers());
+    let users: PlexUser[] = [];
     let options: {} = {
       method: 'GET',
       url: 'https://plex.tv/api/invites/requested',
@@ -103,11 +114,14 @@ export class PlexWrapper {
       },
     };
 
-    return new Promise((resolve: any, reject: any) => {
+    return new Promise((resolve: any) => {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
-            resolve(parsedResult.MediaContainer.Invite || []);
+            parsedResult.MediaContainer.Invite.forEach((user: any) => {
+              users.push(Object.assign(new Object as PlexUser, user.$));
+            });
+            resolve(users);
           });
         })
         .catch((error: any) => {

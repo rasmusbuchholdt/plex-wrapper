@@ -24,7 +24,7 @@ var client = new plexWrapper("clientId", "username", "password");
 
 **Authenticate login with the supplied username and password**
 
-It is possible to manually authenticate after the authentication has gone through you can then take advantage of the promise callback. All the functions built into this library will try to authenticate before performing any method, so this functionality is only for people that want to have full control.
+It is possible to manually authenticate after the authentication has gone through you can then take advantage of the promise callback. All the functions built into this library will try to authenticate before performing any method, so this functionality is only for people that wants to have full control.
 
 ```js
 var plexWrapper = require("plex-wrapper");
@@ -58,8 +58,8 @@ client.getServers().then(result => {
 
 This function allows you to invite a user to a specific server, given you have their username/email and the machine identifier of your server. The target will receive an email with the invite.
 
-- **username**: Can either be the email or username of the target user
-- **machineId**: The server's machine identifier, can be obtained using the `.getServer()` function. 
+- **username**: Can either be the email or username of the target user.
+- **machineId**: The server's machine identifier, can be obtained using the `.getServers()` function. 
 
 ```js
 var plexWrapper = require("plex-wrapper");
