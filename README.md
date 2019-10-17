@@ -72,17 +72,19 @@ client.inviteUser("username", "machineId");
 
 **Return all users with shared library access or pending access to any Plex library**
 
-The Plex API splits up users that already accepted library sharing access and users that still got a pending invitation, the example demonstrate how you get each type of user:
+The Plex API splits up users that already accepted library sharing access and users that still got a pending invitation. Like the `.getServers()` function this one also parses the XML to JSON before returning it. The example demonstrate how you get each type of user:
 
 ```js
 var plexWrapper = require("plex-wrapper");
 var client = new plexWrapper("clientId", "username", "password");
 
 client.getUsers().then(result => {
+    // The result contains a JSON array with all the shared library users
     console.log(result);
 });
 
 client.getPendingUsers().then(result => {
+    // The result contains a JSON array with all the pending shared library users
     console.log(result);
 });
 ```
