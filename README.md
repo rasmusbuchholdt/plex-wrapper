@@ -15,9 +15,34 @@ First you need to require the package and then create an instance of the wrapper
 - **clientId**: A unique client identifier, you can generate a random one [here](https://www.guidgenerator.com/online-guid-generator.aspx). I do not recommend generating a new one every time you run it, as they will clutter up your authorized devices on your Plex.tv account.
 - **username**: Your Plex.tv username.
 - **password**: Your Plex.tv password.
+-  **options** (`optional`): Customize the Plex Device under [authorized devices](https://app.plex.tv/desktop#!/settings/devices/all). 
+    - **title**: The title of your application. Default `Node.js Device`.
+    - **version**: The version of your application. Default `1.0`.
+    - **description**: The description of your application. Default `My awesome app!`.
+	- **operatingSystem**: The version of your application. Default `os.platform() ` which can return the [following](https://nodejs.org/api/os.html#os_os_platform).
+
+**The image demonstrates the Plex Device if `options` are left to default:**
+![Image of Default Plex Device](docs/default-plex-device.PNG)
+
+This example demonstrates how to create your first `PlexAPIClient` with and without custom `options`:
 ```js
 var plexWrapper = require("plex-wrapper");
+
+// With default options
 var client = new plexWrapper.PlexAPIClient("clientId", "username", "password");
+
+// With custom options
+var customClient = new plexWrapper.PlexAPIClient(
+    "clientId", 
+    "username", 
+    "password", 
+    {
+        title: 'My custom title!',
+        version: '2.0',
+        description: 'My custom description',
+        operatingSystem: 'Windows 10'
+    }
+});
 ```
 
 ### .authenticate() `optional`

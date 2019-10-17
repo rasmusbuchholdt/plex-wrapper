@@ -1,19 +1,23 @@
+import { PlexAPIClientOptions } from './models/options';
 import { PlexServer } from './models/server';
 import { PlexUser } from './models/user';
 import { parseXML } from './util';
 
 let request = require('request-promise');
+let os = require('os');
 
 export class PlexAPIClient {
   private clientId: string = '';
   private username: string = '';
   private password: string = '';
   private accessToken: string = '';
+  private options: PlexAPIClientOptions = {};
 
-  constructor(clientId: string, username: string, password: string) {
+  constructor(clientId: string, username: string, password: string, options?: PlexAPIClientOptions) {
     this.clientId = clientId;
     this.username = username;
     this.password = password;
+    Object.assign(this.options, options);
   }
 
   authenticate(): Promise<any> {
@@ -23,10 +27,10 @@ export class PlexAPIClient {
       json: true,
       headers: {
         'X-Plex-Client-Identifier': this.clientId,
-        'X-Plex-Device-Name': '',
-        'X-Plex-Product': '',
-        'X-Plex-Device': '',
-        'X-Plex-Version': '',
+        'X-Plex-Device-Name': this.options.title || 'Node.js Device',
+        'X-Plex-Version': this.options.version || '1.0',
+        'X-Plex-Product': this.options.description || 'My awesome app!',
+        'X-Plex-Device': this.options.operatingSystem || os.platform()
       },
       form: {
         login: this.username,
