@@ -4,7 +4,7 @@ import { parseXML } from './util';
 
 let request = require('request-promise');
 
-module.exports = class PlexWrapper {
+export class PlexAPIClient {
   private clientId: string = '';
   private username: string = '';
   private password: string = '';
