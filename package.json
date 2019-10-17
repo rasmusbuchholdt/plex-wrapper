@@ -2,8 +2,8 @@
   "name": "plex-wrapper",
   "version": "1.0.10",
   "description": "Plex.tv API made easy",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
@@ -17,7 +17,10 @@
   "keywords": [
     "plex",
     "plex.tv",
-    "api"
+    "api",
+    "users",
+    "server",
+    "invite"
   ],
   "author": "Rasmus Buchholdt",
   "license": "MIT",
