@@ -130,6 +130,26 @@ client.removeUser("userId");
 client.removePendingUser("userId");
 ```
 
+### .getSessions()
+
+**Return all sessions running on a specific server**
+
+This function allows you to fetch all active sessions on a specific server. Sessions contains information about who's watching something, including what they're watcihng and on which device. The function requires you to know the IP and port of the server you want to return the sessions of. This function parses it from XML to JSON.
+
+- **ip**: The server's ip, can be obtained using the `.getServers()` function. 
+- **port**: The server's port, can be obtained using the `.getServers()` function. 
+
+This example demonstrates how to get all sessions from a specific server:
+```js
+var plexWrapper = require("plex-wrapper");
+var client = new plexWrapper.PlexAPIClient("clientId", "username", "password");
+
+client.getSessions("127.0.0.1", 32400).then(result => {
+    // The result contains a JSON array with all the sessions
+    console.log(result);
+});
+```
+
 ## License
 
 MIT License

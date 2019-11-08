@@ -1,5 +1,8 @@
 import { PlexAPIClientOptions } from './models/options';
 import { PlexServer } from './models/server';
+import { PlexSessionPlayer } from './models/session/player';
+import { PlexSession } from './models/session/session';
+import { PlexSessionUser } from './models/session/user';
 import { PlexUser } from './models/user';
 import { parseXML } from './util';
 
@@ -186,5 +189,39 @@ export class PlexAPIClient {
       .catch((error: any) => {
         throw new Error(error.message);
       });
+  }
+
+  getSessions(ip:string, port: number): Promise<PlexSession[]> {
+    if (this.accessToken === '') return this.authenticate().then(() => this.getSessions(ip, port));
+    let sessions: PlexSession[] = [];
+    let options: {} = {
+      method: 'GET',
+      url: `http://${ip}:${port}/status/sessions`,
+      headers: {
+        'X-Plex-Token': this.accessToken,
+      },
+    };
+
+    return new Promise((resolve: any) => {
+      request(options)
+        .then((result: any) => {
+          parseXML(result).then((parsedResult: any) => {
+            parsedResult.MediaContainer.Video.forEach((session: any) => {           
+              sessions.push(Object.assign(new Object as PlexSession, session.$, {
+                player: {
+                  ...session.Player[0].$ as PlexSessionPlayer
+                },
+                user: {
+                  ...session.User[0].$ as PlexSessionUser
+                }
+              }));
+            });
+            resolve(sessions);
+          });
+        })
+        .catch((error: any) => {
+          throw new Error(error.message);
+        });
+    });
   }
 }
