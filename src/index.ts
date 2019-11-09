@@ -71,6 +71,7 @@ export class PlexAPIClient {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
+            if (isUndefined(parsedResult.MediaContainer.Server)) return resolve(servers);
             parsedResult.MediaContainer.Server.forEach((server: any) => {
               servers.push(Object.assign(new Object as PlexServer, server.$));
             });
@@ -223,6 +224,7 @@ export class PlexAPIClient {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
+            if (isUndefined(parsedResult.MediaContainer.Video)) return resolve(sessions);
             parsedResult.MediaContainer.Video.forEach((session: any) => {
               sessions.push(Object.assign(new Object as PlexSession, session.$, {
                 player: {
