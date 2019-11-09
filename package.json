@@ -1,6 +1,6 @@
 {
   "name": "plex-wrapper",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Plex.tv API made easy",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
