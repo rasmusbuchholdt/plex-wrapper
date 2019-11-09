@@ -45,6 +45,14 @@ var customClient = new plexWrapper.PlexAPIClient(
 });
 ```
 
+This package is written in TypeScript and comes with types, if you want to have access to those types you simple use import instead of the JavaScript require approach:
+```js
+import { PlexAPIClient } from 'plex-wrapper';
+
+// With default options
+let client: PlexAPIClient = new PlexAPIClient(config.clientId, config.plexUsername, config.plexPassword);
+```
+
 ### .authenticate() `optional`
 
 **Authenticate login with the supplied username and password**
