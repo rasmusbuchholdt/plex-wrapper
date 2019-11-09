@@ -1,3 +1,5 @@
+import { isUndefined } from 'util';
+
 import { PlexAPIClientOptions } from './models/options';
 import { PlexServer } from './models/server';
 import { PlexSessionPlayer } from './models/session/player';
@@ -97,6 +99,7 @@ export class PlexAPIClient {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
+            if (isUndefined(parsedResult.MediaContainer.User)) return resolve (users);
             parsedResult.MediaContainer.User.forEach((user: any) => {
               users.push(Object.assign(new Object as PlexUser, user.$));
             });
@@ -125,6 +128,7 @@ export class PlexAPIClient {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
+            if (isUndefined(parsedResult.MediaContainer.Invite)) return resolve (users);
             parsedResult.MediaContainer.Invite.forEach((user: any) => {
               users.push(Object.assign(new Object as PlexUser, user.$));
             });
