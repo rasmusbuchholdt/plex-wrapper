@@ -1,5 +1,5 @@
-import { PlexSessionPlayer } from './player';
-import { PlexSessionUser } from './user';
+import { PlexSessionPlayer } from './session/player';
+import { PlexSessionUser } from './session/user';
 
 export interface PlexSession {
     addedAt: string;

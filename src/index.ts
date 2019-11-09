@@ -2,8 +2,8 @@ import { isUndefined } from 'util';
 
 import { PlexAPIClientOptions } from './models/options';
 import { PlexServer } from './models/server';
+import { PlexSession } from './models/session';
 import { PlexSessionPlayer } from './models/session/player';
-import { PlexSession } from './models/session/session';
 import { PlexSessionUser } from './models/session/user';
 import { PlexUser } from './models/user';
 import { parseXML } from './util';
