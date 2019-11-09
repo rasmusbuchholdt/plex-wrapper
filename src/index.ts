@@ -99,7 +99,7 @@ export class PlexAPIClient {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
-            if (isUndefined(parsedResult.MediaContainer.User)) return resolve (users);
+            if (isUndefined(parsedResult.MediaContainer.User)) return resolve(users);
             parsedResult.MediaContainer.User.forEach((user: any) => {
               users.push(Object.assign(new Object as PlexUser, user.$));
             });
@@ -128,7 +128,7 @@ export class PlexAPIClient {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
-            if (isUndefined(parsedResult.MediaContainer.Invite)) return resolve (users);
+            if (isUndefined(parsedResult.MediaContainer.Invite)) return resolve(users);
             parsedResult.MediaContainer.Invite.forEach((user: any) => {
               users.push(Object.assign(new Object as PlexUser, user.$));
             });
@@ -138,6 +138,19 @@ export class PlexAPIClient {
         .catch((error: any) => {
           throw new Error(error.message);
         });
+    });
+  }
+
+  getAllUsers(): Promise<PlexUser[]> {
+    let users: PlexUser[] = [];
+    return new Promise((resolve: any, reject: any) => {
+      this.getUsers().then(userResult => {
+        users.push(...userResult);
+        this.getPendingUsers().then(pendingUserResult => {
+          users.push(...pendingUserResult);
+          resolve(users);
+        });
+      });
     });
   }
 
@@ -195,7 +208,7 @@ export class PlexAPIClient {
       });
   }
 
-  getSessions(ip:string, port: number): Promise<PlexSession[]> {
+  getSessions(ip: string, port: number): Promise<PlexSession[]> {
     if (this.accessToken === '') return this.authenticate().then(() => this.getSessions(ip, port));
     let sessions: PlexSession[] = [];
     let options: {} = {
@@ -210,7 +223,7 @@ export class PlexAPIClient {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
-            parsedResult.MediaContainer.Video.forEach((session: any) => {           
+            parsedResult.MediaContainer.Video.forEach((session: any) => {
               sessions.push(Object.assign(new Object as PlexSession, session.$, {
                 player: {
                   ...session.Player[0].$ as PlexSessionPlayer
