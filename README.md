@@ -50,7 +50,7 @@ This package is written in TypeScript and comes with types, if you want to have 
 import { PlexAPIClient } from 'plex-wrapper';
 
 // With default options
-let client: PlexAPIClient = new PlexAPIClient(config.clientId, config.plexUsername, config.plexPassword);
+let client: PlexAPIClient = new PlexAPIClient("clientId", "username", "password");
 ```
 
 ### .authenticate() `optional`
