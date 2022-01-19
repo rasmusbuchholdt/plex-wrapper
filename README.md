@@ -57,13 +57,16 @@ let client: PlexAPIClient = new PlexAPIClient("clientId", "username", "password"
 
 **Authenticate login with the supplied username and password**
 
-It is possible to manually authenticate after the authentication has gone through you can then take advantage of the promise callback. All the functions built into this library will try to authenticate before performing any method, so this functionality is only for people that wants to have full control.
+It is possible to manually authenticate after the authentication has gone through, you can then take advantage of the promise callback. The promise will return the authentication token. All the functions built into this library will try to authenticate before performing any method, so this functionality is only for people that wants to have full control.
 
 ```js
 var plexWrapper = require("plex-wrapper");
 var client = new plexWrapper.PlexAPIClient("clientId", "username", "password");
 
-client.authenticate().then(() => {
+client.authenticate().then(authToken => {
+    // Do something with authentication token
+    console.log(authToken);
+
     // Perform any action that requires the client to be signed in
     client.getServers();
 });

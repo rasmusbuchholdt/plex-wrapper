@@ -25,7 +25,7 @@ export class PlexAPIClient {
     Object.assign(this.options, options);
   }
 
-  authenticate(): Promise<any> {
+  authenticate(): Promise<string> {
     let options: {} = {
       method: 'POST',
       url: 'https://plex.tv/api/v2/users/signin',
@@ -43,12 +43,11 @@ export class PlexAPIClient {
       },
     };
 
-    return new Promise<any>((resolve: any) => {
-    return new Promise<any>(resolve => {
+    return new Promise<string>(resolve => {
       request(options)
         .then((result: { authToken: string }) => {
           this.accessToken = result.authToken;
-          resolve();
+          resolve(result.authToken);
         })
         .catch((error: any) => {
           throw new Error(error.message);
