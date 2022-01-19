@@ -44,6 +44,7 @@ export class PlexAPIClient {
     };
 
     return new Promise<any>((resolve: any) => {
+    return new Promise<any>(resolve => {
       request(options)
         .then((result: { authToken: string }) => {
           this.accessToken = result.authToken;
@@ -67,7 +68,7 @@ export class PlexAPIClient {
       },
     };
 
-    return new Promise((resolve: any) => {
+    return new Promise(resolve => {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
@@ -96,7 +97,7 @@ export class PlexAPIClient {
       },
     };
 
-    return new Promise((resolve: any) => {
+    return new Promise(resolve => {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
@@ -125,7 +126,7 @@ export class PlexAPIClient {
       },
     };
 
-    return new Promise((resolve: any) => {
+    return new Promise(resolve => {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
@@ -220,7 +221,7 @@ export class PlexAPIClient {
       },
     };
 
-    return new Promise((resolve: any) => {
+    return new Promise(resolve => {
       request(options)
         .then((result: any) => {
           parseXML(result).then((parsedResult: any) => {
