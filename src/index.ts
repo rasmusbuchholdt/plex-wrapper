@@ -155,7 +155,7 @@ export class PlexAPIClient {
     });
   }
 
-  getPendingFriends(): Promise<PlexUser[]> {
+  getPendingFriends(): Promise<any[]> {
     if (this.accessToken === '') return this.authenticate().then(() => this.getPendingFriends());
     let users: PlexUser[] = [];
     let options: {} = {
