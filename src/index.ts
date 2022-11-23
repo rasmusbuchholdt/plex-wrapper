@@ -249,7 +249,7 @@ export class PlexAPIClient {
     if (this.accessToken === '') return this.authenticate().then(() => this.isValidUser(emailOrUsername));
   
     let options: {} = {
-      method: 'GET',
+      method: 'POST',
       url: `https://plex.tv/api/users/validate?invited_email=${emailOrUsername}`,
       headers: {
         'X-Plex-Token': this.accessToken,
