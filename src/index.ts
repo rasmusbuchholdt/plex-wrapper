@@ -243,4 +243,27 @@ export class PlexAPIClient {
         });
     });
   }
+
+  isValidUser (emailOrUsername: string): Promise<boolean> {
+  
+    if (this.accessToken === '') return this.authenticate().then(() => this.isValidUser(emailOrUsername));
+  
+    let options: {} = {
+      method: 'POST',
+      url: `https://plex.tv/api/users/validate?invited_email=${emailOrUsername}`,
+      headers: {
+        'X-Plex-Token': this.accessToken,
+      },
+    };
+  
+    return new Promise(resolve => {
+      request(options)
+        .then((result: any) => {
+          resolve(result.includes('Valid user'))
+        })
+        .catch((error: any) => {
+          throw new Error(error.message);
+        });
+    });
+  }
 }
