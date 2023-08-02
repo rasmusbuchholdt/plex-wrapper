@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RasmusBuchholdt/plex-wrapper.git"
+    "url": "git+https://github.com/rasmusbuchholdt/plex-wrapper.git"
   },
   "keywords": [
     "plex",
@@ -25,9 +25,9 @@
   "author": "Rasmus Buchholdt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RasmusBuchholdt/plex-wrapper/issues"
+    "url": "https://github.com/rasmusbuchholdt/plex-wrapper/issues"
   },
-  "homepage": "https://github.com/RasmusBuchholdt/plex-wrapper#readme",
+  "homepage": "https://github.com/rasmusbuchholdt/plex-wrapper#readme",
   "devDependencies": {
     "@types/node": "^12.11.1",
     "typescript": "^3.6.4"
