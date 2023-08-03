@@ -155,6 +155,31 @@ export class PlexAPIClient {
     });
   }
 
+  getPendingFriends(): Promise<any[]> {
+    if (this.accessToken === '') return this.authenticate().then(() => this.getPendingFriends());
+    let users: PlexUser[] = [];
+    let options: {} = {
+      method: 'GET',
+      url: 'https://plex.tv/api/v2/friends?status=pending_sent&includeSharedServers=true',
+      json: true,
+      headers: {
+        'X-Plex-Token': this.accessToken,
+      },
+    };
+    return new Promise(resolve => {
+      request(options)
+        .then((fetchedUsers: any) => {
+          fetchedUsers.forEach((user: any) => {
+            users.push(user);
+          });
+          resolve(users);
+        })
+        .catch((error: any) => {
+          throw new Error(error.message);
+        });
+    });
+  }
+
   inviteUser(username: string, machineId: string): any {
     if (this.accessToken === '') return this.authenticate().then(() => this.inviteUser(username, machineId));
     let options: {} = {
